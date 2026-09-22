@@ -1,0 +1,44 @@
+version: '3.8'
+
+# ==============================================================================
+# REVOLUTIONARY TECHNOLOGY COMPANY & UNIVERSITY OF WASHINGTON DEPARTMENT OF PHYSICS
+# Subsystem: Multi-Profile Mainframe Orchestration Matrix (Sandbox vs. Production)
+# ==============================================================================
+
+services:
+  # Profile 1: Mainframe Emulator Sandbox (Translates 1969 Tooling Tape Arrays)
+  univac-mainframe-core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: revolutionarytech/univac-ix:stamping-sandbox
+    container_name: univac_mainframe_emulator
+    ports:
+      - "8080:8080" # Opens baseline network listener port for legacy data streams
+    environment:
+      - RUN_MODE=SANDBOX
+      - ENCODING_DEFAULT=FIELDATA
+      - TAPE_STREAM_TARGET=/workspace/tape_image.raw
+    volumes:
+      - .:/workspace
+    command: python3 tools/simulation/mainframe_carver.py
+
+  # Profile 2: Hardened Track-Safe Production System (Monitors Car Cluster)
+  copo-car-cluster:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: revolutionarytech/powertrain-bridge:production
+    container_name: copo_production_chassis_core
+    ports:
+      - "443:443" # Hardened TLS channel gateway interface for secure telemetry
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'       # Compute cap to prevent thermal load on controller board VRMs
+          memory: 4096M     # Explicitly locked memory boundaries to prevent execution drift
+    environment:
+      - RUN_MODE=PRODUCTION
+      - AUDIT_POLICY=HARD_LOCK
+      - TRACK_SLIP_LIMIT=4.5
+    restart: unless-stopped
