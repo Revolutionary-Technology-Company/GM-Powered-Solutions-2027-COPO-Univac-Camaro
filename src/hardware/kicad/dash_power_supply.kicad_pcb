@@ -1,0 +1,43 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 2.4) ;; Aviation heavy trace double-sided substrate
+    (layers
+      (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts")
+    )
+  )
+  (setup
+    ;; COMPLIANCE: 12.0mm High-Voltage Creepage Boundary to Protect Dashboard Equipment
+    (clearance_class "HV_800V_Input_Bus" (clearance 12.0) (trace_width 4.0))
+    ;; COMPLIANCE: Parallel 0.5mm Clearance Bilateral Guard Tracking around clean Low-Voltage output rails
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    (clearance_class "Avionics_Logic" (clearance 0.25) (trace_width 0.30))
+  )
+
+  (net 0 "")
+  (net 1 "GND_SHIELD_GUARD")
+  (net 2 "HV_800V_In_Positive")
+  (net 3 "HV_800V_In_Negative")
+  (net 4 "Dash_Clean_12V_Output")
+  (net 5 "Dash_Clean_5V_Output")
+
+  ;; --- Avionics Component Footprints ---
+  
+  ;; U1: Isolated Silicon Carbide (SiC) DC-to-DC Buck Downconverter (800V to 12V/5V)
+  (module "Package_TO_SOT_THT:TO-247-5_Vertical" (layer "F.Cu") (at 40.0 50.0)
+    (pad "1" tht circle (at -5.0 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (net 2 "HV_800V_In_Positive"))
+    (pad "2" tht circle (at -2.5 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (net 3 "HV_800V_In_Negative"))
+    (pad "3" tht circle (at 0 0) (size 3.0 3.0) (drill 1.2) (layers "*.Cu" "*.Mask") (net 1 "GND_SHIELD_GUARD")) ;; Guard Reference
+    (pad "4" tht circle (at 2.5 0) (size 3.5 3.5) (drill 1.5) (layers "*.Cu" "*.Mask") (net 4 "Dash_Clean_12V_Output"))
+    (pad "5" tht circle (at 5.0 0) (size 3.5 3.5) (drill 1.5) (layers "*.Cu" "*.Mask") (net 5 "Dash_Clean_5V_Output"))
+    (net_class "HV_800V_Input_Bus" (pins "1" "2"))
+    (net_class "Bilateral_Guard_Ring" (pins "3"))
+    (net_class "Avionics_Logic" (pins "4" "5"))
+  )
+
+  ;; J1: Master Screw-Terminal Avionics Bus Block (The landing strip for your custom dash wires)
+  (module "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT_0.5-4-2.54" (layer "F.Cu") (at 75.0 50.0)
+    (pad "1" tht circle (at -3.81 0) (size 3.0 3.0) (drill 1.5) (layers "*.Cu" "*.Mask") (net 4 "Dash_Clean_12V_Output"))
+    (pad "2" tht circle (at -1.27 0) (size 3.0 3.0) (drill 1.5) (layers "*.Cu" "*.Mask") (net 5 "Dash_Clean_5V_Output"))
+    (pad "3" tht circle (at 1.27 0) (size 3.0 3.0) (drill 1.5) (layers "*.Cu" "*.Mask") (net 1 "GND_SHIELD_GUARD"))
+    (pad "4" tht circle (at 3.81 0) (size 3.0 3.0) (drill 1.5) (layers "*.Cu" "*.Mask") (net 1 "GND_SHIELD_GUARD"))
+  )
+)
