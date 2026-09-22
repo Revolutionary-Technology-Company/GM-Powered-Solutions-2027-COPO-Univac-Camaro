@@ -1,0 +1,37 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 1.6)
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Signal" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Continuous Parallel 0.5mm Guard Rings Shielding Variant Sensing Traces
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_5V")
+  (net 2 "GND_GUARD_SHIELD")
+  (net 3 "Sense_Base_Coupe")
+  (net 4 "Sense_RS_Hideaway")
+  (net 5 "Sense_SS_Performance")
+  (net 6 "Sense_Z28_RoadRace")
+  (net 7 "Sense_COPO_Monster")
+  (net 8 "Sense_Pace_Car_Conv")
+  (net 9 "Encoded_Variant_Output_Bus")
+
+  ;; --- Component Placements ---
+  
+  ;; U1: Active Hardware Line Multiplexer Selector Matrix (SN74LV4051A Array)
+  (module "Housings_SOIC:SOIC-16_3.9x9.9mm_Pitch1.27mm" (layer "F.Cu") (at 50.0 50.0)
+    (pad "1" smd rect (at -4.445 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 5 "Sense_SS_Performance"))
+    (pad "2" smd rect (at -3.175 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 6 "Sense_Z28_RoadRace"))
+    (pad "3" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 9 "Encoded_Variant_Output_Bus"))
+    (pad "4" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD")) ;; Guard Track
+    (pad "5" smd rect (at 0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD"))  ;; Guard Track
+    (pad "12" smd rect (at 4.445 2.7) (size 0.6 1.5) (layers "F.Cu") (net 7 "Sense_COPO_Monster"))
+    (pad "13" smd rect (at 3.175 2.7) (size 0.6 1.5) (layers "F.Cu") (net 8 "Sense_Pace_Car_Conv"))
+    (pad "14" smd rect (at 1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 3 "Sense_Base_Coupe"))
+    (pad "15" smd rect (at 0.635 2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Sense_RS_Hideaway"))
+    (pad "16" smd rect (at -4.445 2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_5V"))
+  )
+)
