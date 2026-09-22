@@ -1,0 +1,40 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 1.6)
+    (layers
+      (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts")
+    )
+  )
+  (setup
+    (clearance_class "Logic_Signal" (clearance 0.2) (trace_width 0.25))
+    ;; COMPLIANCE: Symmetric Bilateral Guard Tracking around the Multiplexer Common Output Line
+    (clearance_class "Guard_Ring_Class" (clearance 0.5) (trace_width 0.50))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_5V")
+  (net 2 "GND_SHIELD_BUS")
+  (net 3 "Shock_LF_Analog")
+  (net 4 "Shock_RF_Analog")
+  (net 5 "Shock_LR_Analog")
+  (net 6 "Shock_RR_Analog")
+  (net 7 "Mux_Muti_Select_A")
+  (net 8 "Mux_Muti_Select_B")
+  (net 9 "Unified_Multiplexed_Output")
+
+  ;; --- Component Matrix Footprints ---
+  
+  ;; U1: Active Hardware Multiplexer (Replaces separate independent code buffers)
+  (module "Housings_SOIC:SOIC-16_3.9x9.9mm_Pitch1.27mm" (layer "F.Cu") (at 45.0 50.0)
+    (pad "1" smd rect (at -4.445 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 5 "Shock_LR_Analog"))
+    (pad "2" smd rect (at -3.175 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 6 "Shock_RR_Analog"))
+    (pad "3" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 9 "Unified_Multiplexed_Output"))
+    (pad "4" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_SHIELD_BUS")) ;; Guard Left
+    (pad "5" smd rect (at 0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_SHIELD_BUS"))  ;; Guard Right
+    (pad "11" smd rect (at 3.175 2.7) (size 0.6 1.5) (layers "F.Cu") (net 7 "Mux_Muti_Select_A"))
+    (nav_class "Logic_Signal" (pins "11"))
+    (pad "10" smd rect (at 1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 8 "Mux_Muti_Select_B"))
+    (pad "13" smd rect (at -0.635 2.7) (size 0.6 1.5) (layers "F.Cu") (net 3 "Shock_LF_Analog"))
+    (pad "14" smd rect (at -1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Shock_RF_Analog"))
+    (pad "16" smd rect (at -4.445 2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_5V"))
+  )
+)
