@@ -1,0 +1,42 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 2.4) ;; Upgraded 2.4mm thick substrate to support heavy copper weight
+    (layers
+      (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts")
+    )
+  )
+  (setup
+    ;; RULE #2 COMPLIANCE: 12.0mm High-Voltage Air-Gap Creepage Boundary for 800V DC Systems
+    (clearance_class "HV_Traction_Bus" (clearance 12.0) (trace_width 6.0)) ;; Thick 6mm trace handles high recharge amps
+    (clearance_class "Logic_Control" (clearance 0.25) (trace_width 0.25))
+  )
+
+  (net 0 "")
+  (net 1 "Mux_Shield_GND")
+  (net 2 "Regen_Shock_Phase_Input_High")
+  (net 3 "HV_Main_Battery_Pos_800V")
+  (net 4 "HV_Main_Battery_Neg_GND")
+  (net 5 "Gate_Drive_PWM_Trigger")
+
+  ;; --- Power Matrix Solid-State Component Footprints ---
+  
+  ;; Q1: High-Power Silicon Carbide (SiC) MOSFET Switch (Handles 800V Buck-Boost Modulation)
+  (module "Package_TO_SOT_THT:TO-247-3_Vertical" (layer "F.Cu") (at 35.0 60.0)
+    (pad "1" tht circle (at -5.44 0) (size 3.5 3.5) (drill 1.6) (layers "*.Cu" "*.Mask") (net 5 "Gate_Drive_PWM_Trigger"))
+    (pad "2" tht circle (at 0 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (net 2 "Regen_Shock_Phase_Input_High"))
+    (pad "3" tht circle (at 5.44 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (net 4 "HV_Main_Battery_Neg_GND"))
+    (net_class "HV_Traction_Bus" (pins "2" "3"))
+  )
+
+  ;; D1: Fast-Recovery Freewheeling Flyback Isolation Diode (Prevents reverse polarity inductive spikes)
+  (module "Diode_THT:D_DO-247_Vertical" (layer "F.Cu") (at 60.0 60.0)
+    (pad "1" tht circle (at -3.5 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (net 2 "Regen_Shock_Phase_Input_High"))
+    (pad "2" tht circle (at 3.5 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (net 3 "HV_Main_Battery_Pos_800V"))
+    (net_class "HV_Traction_Bus" (pins "1" "2"))
+  )
+
+  ;; J1: Ultra-Rugged Solid Copper High-Voltage Distribution Bar Terminal Stud
+  (module "Connector_Stocko:M8_Heavy_Duty_Power_Stud" (layer "F.Cu") (at 85.0 60.0)
+    (pad "1" tht circle (at 0 0) (size 12.0 12.0) (drill 8.2) (layers "*.Cu" "*.Mask") (net 3 "HV_Main_Battery_Pos_800V"))
+    (pad "2" tht circle (at 0 25.0) (size 12.0 12.0) (drill 8.2) (layers "*.Cu" "*.Mask") (net 4 "HV_Main_Battery_Neg_GND"))
+  )
+)
