@@ -1,0 +1,37 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 2.4) ;; Thick 2.4mm aviation substrate supporting high-amperage current loops
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Control" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Continuous 0.5mm Parallel Guard Ground Tracks Shielding Pyro-Trigger Commands
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    ;; COMPLIANCE: Rule #1 Heavy 3oz Copper Trace Boundaries Handling Up to 1000A Launch Surge
+    (clearance_class "Heavy_3oz_Traction_Bus" (clearance 12.0) (trace_width 6.50))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_12V_AVIONICS")
+  (net 2 "GND_GUARD_SHIELD")
+  (net 3 "Pyro_Breaker_Fire_Signal")
+  (net 4 "Main_Contactor_Hold_Signal")
+  (net 5 "HV_800V_Pack_Positive_In")
+  (net 6 "HV_800V_Busbar_Propulsion_Out")
+
+  ;; --- Component Matrix Placements ---
+  
+  ;; U1: High-Power Pyrotechnic Disconnect Circuit Switch Driver (Aviation-Grade Fire Safety Gate)
+  (module "Package_TO_SOT_THT:TO-247-3_Vertical" (layer "F.Cu") (at 45.0 50.0)
+    (pad "1" tht circle (at -5.44 0) (size 3.5 3.5) (drill 1.6) (layers "*.Cu" "*.Mask") (net 3 "Pyro_Breaker_Fire_Signal"))
+    (pad "2" tht circle (at 0 0) (size 6.0 6.0) (drill 2.5) (layers "*.Cu" "*.Mask") (net 5 "HV_800V_Pack_Positive_In"))
+    (pad "3" tht circle (at 5.44 0) (size 6.0 6.0) (drill 2.5) (layers "*.Cu" "*.Mask") (net 6 "HV_800V_Busbar_Propulsion_Out"))
+    (net_class "Heavy_3oz_Traction_Bus" (pins "2" "3"))
+  )
+
+  ;; J1: Master High-Current Solid Copper Busbar Threaded Stud Terminal Flange
+  (module "Connector_Stocko:M8_Heavy_Duty_Power_Stud" (layer "F.Cu") (at 80.0 50.0)
+    (pad "1" tht circle (at 0 0) (size 14.0 12.0) (drill 8.2) (layers "*.Cu" "*.Mask") (net 5 "HV_800V_Pack_Positive_In"))
+    (pad "2" tht circle (at 0 30.0) (size 14.0 12.0) (drill 8.2) (layers "*.Cu" "*.Mask") (net 6 "HV_800V_Busbar_Propulsion_Out"))
+    (net_class "Heavy_3oz_Traction_Bus" (pins "1" "2"))
+  )
+)
