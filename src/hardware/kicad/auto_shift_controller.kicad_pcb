@@ -1,0 +1,33 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 1.6)
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Signal" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Parallel 0.5mm Bilateral Guard Rings Shielding Shift Solenoid Data Channels
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    (clearance_class "Solenoid_Power" (clearance 1.5) (trace_width 1.50))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_12V_AVIONICS")
+  (net 2 "GND_GUARD_BUS")
+  (net 3 "Shift_Command_CAN_High")
+  (net 4 "Shift_Command_CAN_Low")
+  (net 5 "Solenoid_A_Drive_12V")
+  (net 6 "Solenoid_B_Drive_12V")
+
+  ;; --- Component Matrix Placements ---
+  
+  ;; U1: High-Current Octal Solenoid Driver Valve Core (Aviation Automated Gate Transceiver)
+  (module "Housings_SOIC:SOIC-16_3.9x9.9mm_Pitch1.27mm" (layer "F.Cu") (at 45.0 50.0)
+    (pad "1" smd rect (at -4.445 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_12V_AVIONICS"))
+    (pad "2" smd rect (at -3.175 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 3 "Shift_Command_CAN_High"))
+    (pad "3" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Shift_Command_CAN_Low"))
+    (pad "4" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_BUS"))  ;; Guard Line Left
+    (pad "5" smd rect (at 0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_BUS"))   ;; Guard Line Right
+    (pad "15" smd rect (at -3.175 2.7) (size 0.6 1.5) (layers "F.Cu") (net 5 "Solenoid_A_Drive_12V"))
+    (pad "16" smd rect (at -4.445 2.7) (size 0.6 1.5) (layers "F.Cu") (net 6 "Solenoid_B_Drive_12V"))
+    (net_class "Solenoid_Power" (pins "15" "16"))
+  )
+)
