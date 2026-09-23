@@ -1,0 +1,38 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 2.4) ;; Aviation-heavy double-sided substrate to support winching current traces
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Control" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Continuous 0.5mm Parallel Guard Ground Tracks Shielding Tactical Command Signals
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    (clearance_class "Heavy_Winch_Traction" (clearance 4.0) (trace_width 5.0))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_12V_AVIONICS")
+  (net 2 "GND_GUARD_SHIELD")
+  (net 3 "Winch_In_Relay_Trigger")
+  (net 4 "Lightbar_Strobe_PWM_Sig")
+  (net 5 "Winch_High_Amperage_Out")
+  (net 6 "Lightbar_Strobe_Power_Out")
+
+  ;; --- Component Matrix Placements ---
+  
+  ;; U1: Ultra-High-Current Solid-State Power MOSFET Relay (Tactical Winch System Gate)
+  (module "Package_TO_SOT_THT:TO-247-3_Vertical" (layer "F.Cu") (at 40.0 50.0)
+    (pad "1" tht circle (at -5.44 0) (size 3.5 3.5) (drill 1.6) (layers "*.Cu" "*.Mask") (net 3 "Winch_In_Relay_Trigger"))
+    (pad "2" tht circle (at 0 0) (size 5.5 5.5) (drill 2.5) (layers "*.Cu" "*.Mask") (net 1 "VCC_12V_AVIONICS"))
+    (pad "3" tht circle (at 5.44 0) (size 5.5 5.5) (drill 2.5) (layers "*.Cu" "*.Mask") (net 5 "Winch_High_Amperage_Out"))
+    (net_class "Heavy_Winch_Traction" (pins "2" "3"))
+  )
+
+  ;; U2: Fast-Switching Strobe Matrix Controller (Drives rooftop flashing lightbar lines)
+  (module "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" (layer "F.Cu") (at 75.0 50.0)
+    (pad "1" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_12V_AVIONICS"))
+    (pad "2" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Lightbar_Strobe_PWM_Sig"))
+    (pad "4" smd rect (at 1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD")) ;; Guard Line Left
+    (pad "5" smd rect (at 1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD"))  ;; Guard Line Right
+    (pad "8" smd rect (at -1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 6 "Lightbar_Strobe_Power_Out"))
+  )
+)
