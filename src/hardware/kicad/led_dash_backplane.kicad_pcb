@@ -1,0 +1,40 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 1.6)
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Signal" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Continuous 0.5mm Parallel Guard Ground Tracks Shielding Custom Instrument Driver Bus
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    (clearance_class "Stepper_Power" (clearance 1.0) (trace_width 1.00))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_12V_AVIONICS")
+  (net 2 "GND_GUARD_SHIELD")
+  (net 3 "Cluster_Data_SPI_MOSI")
+  (net 4 "Cluster_Data_SPI_SCK")
+  (net 5 "Stepper_Phase_A_Drive")
+  (net 6 "Stepper_Phase_B_Drive")
+
+  ;; --- Component Matrix Placements ---
+  
+  ;; U1: Multi-Channel Constant-Current LED Driver Core (Custom 1969 Backlight Shift Array)
+  (module "Housings_SOIC:SOIC-16_3.9x9.9mm_Pitch1.27mm" (layer "F.Cu") (at 40.0 50.0)
+    (pad "1" smd rect (at -4.445 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_12V_AVIONICS"))
+    (pad "2" smd rect (at -3.175 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 3 "Cluster_Data_SPI_MOSI"))
+    (pad "3" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Cluster_Data_SPI_SCK"))
+    (pad "4" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD")) ;; Guard Line Left
+    (pad "5" smd rect (at 0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD"))  ;; Guard Line Right
+  )
+
+  ;; U2: High-Accuracy Micro-Stepping Motor Controller (Sweeps physical speedometer/tachometer needles)
+  (module "Housings_SOIC:SOIC-16_3.9x9.9mm_Pitch1.27mm" (layer "F.Cu") (at 75.0 50.0)
+    (pad "1" smd rect (at -4.445 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_12V_AVIONICS"))
+    (pad "2" smd rect (at -3.175 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Cluster_Data_SPI_SCK"))
+    (pad "3" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD"))
+    (pad "15" smd rect (at -3.175 2.7) (size 0.6 1.5) (layers "F.Cu") (net 5 "Stepper_Phase_A_Drive"))
+    (pad "16" smd rect (at -4.445 2.7) (size 0.6 1.5) (layers "F.Cu") (net 6 "Stepper_Phase_B_Drive"))
+    (net_class "Stepper_Power" (pins "15" "16"))
+  )
+)
