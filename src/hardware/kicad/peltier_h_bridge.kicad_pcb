@@ -1,0 +1,33 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 1.6)
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Control" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Continuous 0.5mm Parallel Guard Ground Tracks Shielding Thermoelectric Control Lines
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    (clearance_class "Power_Traction" (clearance 2.0) (trace_width 3.0))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_12V_AVIONICS")
+  (net 2 "GND_GUARD_SHIELD")
+  (net 3 "Peltier_H_Bridge_Enable_A")
+  (net 4 "Peltier_H_Bridge_Enable_B")
+  (net 5 "Peltier_Output_Rail_Pos")
+  (net 6 "Peltier_Output_Rail_Neg")
+
+  ;; --- Component Matrix Placements ---
+  
+  ;; U1: Dual-Channel High-Current MOSFET Driver Matrix (Peltier Polarity Swapping Gate)
+  (module "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" (layer "F.Cu") (at 50.0 50.0)
+    (pad "1" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_12V_AVIONICS"))
+    (pad "2" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 3 "Peltier_H_Bridge_Enable_A"))
+    (pad "3" smd rect (at 0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Peltier_H_Bridge_Enable_B"))
+    (pad "4" smd rect (at 1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD")) ;; Guard Line Left
+    (pad "5" smd rect (at 1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD"))  ;; Guard Line Right
+    (pad "6" smd rect (at 0.635 2.7) (size 0.6 1.5) (layers "F.Cu") (net 5 "Peltier_Output_Rail_Pos"))
+    (pad "7" smd rect (at -0.635 2.7) (size 0.6 1.5) (layers "F.Cu") (net 6 "Peltier_Output_Rail_Neg"))
+    (net_class "Power_Traction" (pins "5" "6"))
+  )
+)
