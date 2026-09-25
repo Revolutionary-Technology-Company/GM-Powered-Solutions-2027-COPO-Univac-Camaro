@@ -1,0 +1,31 @@
+(kicad_pcb (version 20240108) (host pcbnew)
+  (general (thickness 1.6)
+    (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (44 "Edge.Cuts" user "Edge.Cuts"))
+  )
+  (setup
+    (clearance_class "Logic_Control" (clearance 0.25) (trace_width 0.25))
+    ;; COMPLIANCE: Continuous 0.5mm Parallel Guard Ground Tracks Shielding RS Hideaway Actuators
+    (clearance_class "Bilateral_Guard_Ring" (clearance 0.5) (trace_width 0.50))
+    (clearance_class "Actuator_Power_Bus" (clearance 1.0) (trace_width 1.20))
+  )
+
+  (net 0 "")
+  (net 1 "VCC_12V_AVIONICS")
+  (net 2 "GND_GUARD_SHIELD")
+  (net 3 "RS_Door_Open_Trigger_Logic")
+  (net 4 "Solenoid_Actuator_High_Pulse")
+  (net 5 "Solenoid_Actuator_Low_Pulse")
+
+  ;; --- Component Matrix Placements ---
+  
+  ;; U1: Solid-State Door Release Relay Module (Rally Sport Hideaway Gate Controller)
+  (module "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" (layer "F.Cu") (at 45.0 50.0)
+    (pad "1" smd rect (at -1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 1 "VCC_12V_AVIONICS"))
+    (pad "2" smd rect (at -0.635 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 3 "RS_Door_Open_Trigger_Logic"))
+    (pad "4" smd rect (at 1.905 -2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD")) ;; Guard Track Left
+    (pad "5" smd rect (at 1.905 2.7) (size 0.6 1.5) (layers "F.Cu") (net 2 "GND_GUARD_SHIELD"))  ;; Guard Track Right
+    (pad "6" smd rect (at 0.635 2.7) (size 0.6 1.5) (layers "F.Cu") (net 4 "Solenoid_Actuator_High_Pulse"))
+    (pad "7" smd rect (at -0.635 2.7) (size 0.6 1.5) (layers "F.Cu") (net 5 "Solenoid_Actuator_Low_Pulse"))
+    (net_class "Actuator_Power_Bus" (pins "6" "7"))
+  )
+)
