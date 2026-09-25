@@ -1,0 +1,32 @@
+====================================================================================
+REVOLUTIONARY TECHNOLOGY COMPANY & UNIVERSITY OF WASHINGTON DEPARTMENT OF PHYSICS
+Subsystem: copo_cockpit_harness_pinouts.txt (Post-Body Cockpit 12V Avionics Loom)
+Core Objective: Low-Voltage Pin Landing Grid Matrix for Street-Legal / Track Components
+Compliance: Rule #2 (Bilateral 0.5mm Parallel Guard Ground Shielding Rings)
+====================================================================================
+
+[TERMINAL J1: NATIVE 1969 BIO-AUTHENTIC IGNITION TUMBLER INTERACTION ARRAY]
+* Pin 1  [12V_AVIONICS_IN]   <--> Supplies raw battery source lines to key cylinder
+* Pin 2  [IGNITION_RUN_REG]  <--> Logic indicator high wire when key flips to RUN state
+* Pin 3  [STARTER_CRANK_REG] <--> Fires 16-state logic validation engine check loop
+* Pin 4  [GND_GUARD_SHIELD]  <--> Rule #2 Ground loop barrier shielding mechanical contacts
+
+[TERMINAL J2: SOLID-STATE PELTIER CLIMATE H-BRIDGE POLARITY SWITCH GATE]
+* Pin 1  [12V_HVAC_FEED_H]   <--> High-current supply path powering Peltier warming loop
+* Pin 2  [12V_HVAC_FEED_L]   <--> High-current supply path powering Peltier cooling loop
+* Pin 3  [SLIDER_TEMP_OHMS]  <--> Variable voltage reading from 1969 mechanical levers
+* Pin 4  [GND_GUARD_SHIELD]  <--> Shielding track wrapping climate linear potentiometers
+
+[TERMINAL J3: BOSE ACOUSTIC SPEECH SPECTRUM TRANSDUCER AUDIO ARRAY]
+* Pin 1  [BOSE_AMP_FEED_P]   <--> Balanced positive line feeding dashboard neodymium pods
+* Pin 2  [BOSE_AMP_FEED_N]   <--> Balanced negative line feeding dashboard neodymium pods
+* Pin 3  [HEADREST_ALERT_H]  <--> High-priority voice synthesized warning line (Driver)
+* Pin 4  [GND_GUARD_SHIELD]  <--> Unbroken continuous guard ground wrap preventing EMI hum
+
+[TERMINAL J4: AEROSPACE WINDOW MANUAL REGULATOR EMERGENCY DUMP GATE]
+* Pin 1  [12V_SOLENOID_SRC]  <--> Suppling high-current reservoir rail to door frame
+* Pin 2  [ESCAPE_DROP_LOGIC] <--> Logic trigger pulse to blow latch locking plungers
+* Pin 3  [CRANK_SPINDLE_SNS] <--> Rotational feedback loop auditing manual glass height
+* Pin 4  [GND_GUARD_SHIELD]  <--> Guard ring surrounding emergency dump gate trigger paths
+
+====================================================================================
